@@ -46,5 +46,5 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # لا حاجة لاستخدام app.run هنا في بيئة الإنتاج
-    pass
+    # ✅ مهم جداً لتشغيل السيرفر على Railway
+    app.run(host='0.0.0.0', port=8000)
