@@ -8,10 +8,8 @@ import io
 
 app = Flask(__name__)
 
-# تحميل الموديل
 model = load_model('Skin Cancer8.keras')
 
-# أسماء الفئات (لو عندك غيرهم استبدلهم)
 labels = ['Actinic keratoses', 'Basal cell carcinoma', 'Benign keratosis-like lesions',
           'Dermatofibroma', 'Melanocytic nevi', 'Melanoma', 'Vascular lesions']
 
@@ -29,17 +27,17 @@ def predict():
     data = request.json
     if 'imageUrl' not in data:
         return jsonify({'error': 'Missing imageUrl'}), 400
-    
+
     img_url = data['imageUrl']
-    
+
     try:
         img = prepare_image(img_url)
         predictions = model.predict(img)
-        
+
         predicted_index = np.argmax(predictions[0])
         predicted_label = labels[predicted_index]
         confidence = float(predictions[0][predicted_index])
-        
+
         return jsonify({
             'predicted_label': predicted_label,
             'confidence': confidence
@@ -48,4 +46,5 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # ✅ مهم جداً لتشغيل السيرفر على Railway
+    app.run(host='0.0.0.0', port=8000)
