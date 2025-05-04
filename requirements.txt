@@ -4,3 +4,4 @@ numpy
 Pillow
 requests
 gunicorn
+tensorflow==2.12.0
