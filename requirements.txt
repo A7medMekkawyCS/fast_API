@@ -1,5 +1,6 @@
 Flask
-tensorflow==2.17.1
-Pillow
 numpy
+Pillow
 requests
+gunicorn
+tensorflow==2.17.1
