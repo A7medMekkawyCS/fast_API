@@ -5,24 +5,25 @@ import numpy as np
 import requests
 from PIL import Image
 import io
+import os
 
 app = Flask(__name__)
 
 # تحميل الموديل
 model = load_model('Skin Cancer8.keras')
 
-# أسماء الفئات (غيرها لو عندك أسماء تانية بالكود الأصلي)
+# التصنيفات المتوقعة
 labels = ['Actinic keratoses', 'Basal cell carcinoma', 'Benign keratosis-like lesions',
           'Dermatofibroma', 'Melanocytic nevi', 'Melanoma', 'Vascular lesions']
 
-# دالة لتحضير الصورة
-def prepare_image(img_url, target_size=(224, 224)):  # عدل الحجم لو مختلف
+# معالجة الصورة
+def prepare_image(img_url, target_size=(224, 224)): 
     response = requests.get(img_url)
     img = Image.open(io.BytesIO(response.content)).convert('RGB')
     img = img.resize(target_size)
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0  # تأكد لو الموديل متدرب normalized
+    img_array = img_array / 255.0  
     return img_array
 
 @app.route('/predict', methods=['POST'])
@@ -48,5 +49,7 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# إعداد المنفذ حسب Railway
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
