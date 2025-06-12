@@ -1,6 +1,6 @@
-Flask
-numpy
-Pillow
-requests
-gunicorn
-tensorflow==2.12.0
+Flask==3.1.1
+numpy==1.26.4
+Pillow==11.2.1
+requests==2.32.4
+gunicorn==23.0.0
+tensorflow==2.17.1
