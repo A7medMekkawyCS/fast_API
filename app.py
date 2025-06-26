@@ -7,38 +7,23 @@ import requests
 from PIL import Image
 import io
 import os
-<<<<<<< HEAD
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
-=======
-
->>>>>>> 04b225943634cd110118e843e2ed95e607d266e2
 app = Flask(__name__)
 
 # تحميل الموديل
 model = load_model('Skin cancer11.keras')
 
 # التصنيفات المتوقعة
-<<<<<<< HEAD
 labels = ['Benign','Malignant']
-=======
-labels = ['Actinic keratoses', 'Basal cell carcinoma', 'Benign keratosis-like lesions',
-          'Dermatofibroma', 'Melanocytic nevi', 'Melanoma', 'Vascular lesions']
->>>>>>> 04b225943634cd110118e843e2ed95e607d266e2
 
-# معالجة الصورة
 def prepare_image(img_url, target_size=(224, 224)): 
     response = requests.get(img_url)
     img = Image.open(io.BytesIO(response.content)).convert('RGB')
     img = img.resize(target_size)
     img_array = image.img_to_array(img)
-<<<<<<< HEAD
     img_array = preprocess_input(img_array)  # Normalize input for MobileNet
     img_array = tf.expand_dims(img_array, axis=0)  # Add batch dimension
-=======
-    img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0  
->>>>>>> 04b225943634cd110118e843e2ed95e607d266e2
     return img_array
 
 
