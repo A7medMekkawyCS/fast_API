@@ -15,7 +15,7 @@ app = Flask(__name__)
 model = load_model('Skin cancer11.keras')
 
 # التصنيفات المتوقعة
-labels = ['Benign','Malignant']
+labels = ['Benign','Malignant','Be11nign','Ma11lignant','Be12nign',]
 
 # معالجة الصورة
 def prepare_image(img_url, target_size=(224, 224)): 
